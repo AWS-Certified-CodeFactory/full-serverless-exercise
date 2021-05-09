@@ -1,0 +1,3 @@
+#!/bin/sh
+set -euo pipefail
+java -XX:TieredStopAtLevel=1 -noverify -cp demo-lambda-all.jar io.micronaut.function.aws.runtime.MicronautLambdaRuntime

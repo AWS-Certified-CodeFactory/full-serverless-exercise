@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: com.example.lambda.demo
+testFramework: spock
+sourceLanguage: java
+buildTool: gradle
+features: [annotation-api, app-name, aws-lambda, aws-lambda-custom-runtime, aws-v2-sdk, gradle, http-client, java, logback, readme, shade, spock, yaml]
