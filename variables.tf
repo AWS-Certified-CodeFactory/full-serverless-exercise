@@ -21,7 +21,7 @@ variable "env" {
 variable "aws_region" {
   description = "AWS Resources created region"
   type        = string
-  default     = "us-west-2"
+  default     = "us-east-1"
 }
 
 variable "rds_dbname" {
