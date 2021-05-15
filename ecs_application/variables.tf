@@ -16,6 +16,9 @@ variable "subnets" {}
 variable "security_group_id" {}
 variable "service_registry_arn" {}
 variable "common_tags" {}
+variable "target_group_name" {
+  default = ""
+}
 
 variable "app_name" {}
 
@@ -42,3 +45,15 @@ variable "memory_container" {
 variable "desired_count" {
   default = 1
 }
+
+variable "environment_variables" {
+  default = [
+    {
+      name  = "FOO"
+      value = "BAR"
+    }
+  ]
+}
+
+variable "task_execution_role_arn" {}
+variable "task_role_arn" {}

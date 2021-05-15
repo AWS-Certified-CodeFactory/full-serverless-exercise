@@ -9,6 +9,17 @@ resource "aws_lb" "cluster_ingress" {
   tags = local.common_tags
 }
 
+resource "aws_lb_listener" "https" {
+  load_balancer_arn = aws_lb.cluster_ingress.arn
+  port              = 8081
+  protocol          = "HTTP"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = module.backend_api_gateway.target_group_arn
+  }
+}
+
 resource "aws_lb_listener" "http" {
   load_balancer_arn = aws_lb.cluster_ingress.arn
   port              = 80
@@ -16,7 +27,7 @@ resource "aws_lb_listener" "http" {
 
   default_action {
     type             = "forward"
-    target_group_arn = module.backend_api_gateway.target_group_arn
+    target_group_arn = module.frontend_website.target_group_arn
   }
 }
 

@@ -13,7 +13,8 @@ resource "aws_ecs_task_definition" "app" {
           containerPort = 80
           hostPort      = 80
         }
-      ]
+      ],
+      environment = var.environment_variables
     }
   ])
 
@@ -21,6 +22,10 @@ resource "aws_ecs_task_definition" "app" {
   cpu                      = var.cpu_container
   memory                   = var.memory_container
   requires_compatibilities = ["FARGATE"]
+
+  task_role_arn      = var.task_role_arn
+  execution_role_arn = var.task_execution_role_arn
+
 }
 
 resource "aws_ecs_service" "app" {
@@ -53,7 +58,7 @@ resource "aws_ecs_service" "app" {
 }
 
 resource "aws_lb_target_group" "app" {
-  name        = "${var.org}-${var.app_name}"
+  name        = var.target_group_name
   target_type = "ip"
   port        = 80
   protocol    = "HTTP"
