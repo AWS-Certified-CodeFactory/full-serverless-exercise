@@ -14,6 +14,8 @@ module "frontend_website" {
   cluster_id           = aws_ecs_cluster.main.id
   service_registry_arn = aws_service_discovery_service.cluster_registry.arn
 
+  desired_count = 3
+
   vpc_id                  = module.vpc.vpc_id
   security_group_id       = module.vpc.default_security_group_id
   subnets                 = module.vpc.private_subnets
@@ -29,6 +31,12 @@ module "backend_api_gateway" {
 
   image    = "${var.ecr_repo}/fs-aws.api_gateway"
   app_name = "backend-api-gateway"
+
+  cpu              = 512
+  cpu_container    = "1024"
+  memory           = 1024
+  memory_container = "2048"
+  desired_count    = 3
 
   cluster_id           = aws_ecs_cluster.main.id
   service_registry_arn = aws_service_discovery_service.cluster_registry.arn
