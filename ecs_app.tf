@@ -48,7 +48,7 @@ module "backend_api_gateway" {
     },
     {
       name  = "DATASOURCES_DEFAULT_URL"
-      value = "jdbc:postgresql://${aws_rds_cluster.main.endpoint}:5432/postgres"
+      value = "jdbc:postgresql://${aws_rds_cluster.main.endpoint}:5432/${var.rds_dbname}"
     },
     {
       name  = "DATASOURCES_DEFAULT_USERNAME"
