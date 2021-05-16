@@ -32,10 +32,6 @@ variable "rds_username" {
   default = "app_user"
 }
 
-variable "rds_password" {
-  default = "test.123456"
-}
-
 variable "ecr_repo" {
   default = "xxxxxxxxxx.dkr.ecr.us-east-1.amazonaws.com"
 }

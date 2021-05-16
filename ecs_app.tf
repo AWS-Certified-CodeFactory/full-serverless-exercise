@@ -48,7 +48,6 @@ module "backend_api_gateway" {
   task_execution_role_arn = aws_iam_role.ecs_execution.arn
   task_role_arn           = aws_iam_role.ecs_execution.arn
 
-  //TODO: externalize
   environment_variables = [
     {
       name  = "MICRONAUT_SERVER_PORT"
@@ -59,16 +58,19 @@ module "backend_api_gateway" {
       value = "jdbc:postgresql://${aws_rds_cluster.main.endpoint}:5432/${var.rds_dbname}"
     },
     {
-      name  = "DATASOURCES_DEFAULT_USERNAME"
-      value = var.rds_username
-    },
-    {
-      name  = "DATASOURCES_DEFAULT_PASSWORD"
-      value = var.rds_password
-    },
-    {
       name  = "DATASOURCES_DEFAULT_SCHEMA_GENERATE"
       value = "CREATE"
+    }
+  ]
+
+  secrets = [
+    {
+      name      = "DATASOURCES_DEFAULT_USERNAME"
+      valueFrom = "${aws_secretsmanager_secret_version.database_credentials.arn}:username::"
+    },
+    {
+      name      = "DATASOURCES_DEFAULT_PASSWORD"
+      valueFrom = "${aws_secretsmanager_secret_version.database_credentials.arn}:password::"
     }
   ]
 

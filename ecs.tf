@@ -1,4 +1,6 @@
 resource "aws_ecs_cluster" "main" {
+  depends_on = [aws_rds_cluster.main, aws_secretsmanager_secret_version.database_credentials]
+
   name = "${var.org}-${var.env}-ecs-cluster"
 
   setting {
@@ -78,6 +80,19 @@ resource "aws_iam_policy" "ecs_execution" {
                 "logs:PutLogEvents"
             ],
             "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "secretsmanager:GetResourcePolicy",
+                "secretsmanager:GetSecretValue",
+                "secretsmanager:DescribeSecret",
+                "secretsmanager:ListSecretVersionIds",
+                "secretsmanager:ListSecrets"
+            ],
+            "Resource": [
+                "${aws_secretsmanager_secret.database_credentials.arn}"
+            ]
         }
     ]
 }

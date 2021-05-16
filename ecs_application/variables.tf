@@ -55,5 +55,9 @@ variable "environment_variables" {
   ]
 }
 
+variable "secrets" {
+  default = []
+}
+
 variable "task_execution_role_arn" {}
 variable "task_role_arn" {}

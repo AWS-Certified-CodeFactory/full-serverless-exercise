@@ -16,8 +16,8 @@ resource "aws_rds_cluster" "main" {
   }
 
   database_name   = var.rds_dbname
-  master_username = var.rds_username
-  master_password = var.rds_password
+  master_username = tostring(jsondecode(aws_secretsmanager_secret_version.database_credentials.secret_string)["username"])
+  master_password = tostring(jsondecode(aws_secretsmanager_secret_version.database_credentials.secret_string)["password"])
 
   vpc_security_group_ids = [module.vpc.default_security_group_id]
   db_subnet_group_name   = aws_db_subnet_group.rds_subnet.name
