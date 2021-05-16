@@ -8,7 +8,7 @@ resource "aws_secretsmanager_secret_version" "database_credentials" {
 
   secret_string = jsonencode({
     username = var.rds_username
-    password = random_password.database_password.id
+    password = random_password.database_password.result
   })
 }
 
