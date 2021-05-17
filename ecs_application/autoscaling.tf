@@ -21,6 +21,6 @@ resource "aws_appautoscaling_policy" "app" {
 
     target_value       = 50
     scale_in_cooldown  = 120
-    scale_out_cooldown = 30
+    scale_out_cooldown = 10
   }
 }

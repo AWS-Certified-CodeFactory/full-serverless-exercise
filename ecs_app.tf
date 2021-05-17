@@ -15,7 +15,7 @@ module "frontend_website" {
   cluster_name         = aws_ecs_cluster.main.name
   service_registry_arn = aws_service_discovery_service.cluster_registry.arn
 
-  desired_count = 3
+  desired_count = 6
 
   vpc_id                  = module.vpc.vpc_id
   security_group_id       = module.vpc.default_security_group_id
@@ -37,7 +37,7 @@ module "backend_api_gateway" {
   cpu_container    = "1024"
   memory           = 1024
   memory_container = "2048"
-  desired_count    = 3
+  desired_count    = 10
 
   cluster_id           = aws_ecs_cluster.main.id
   cluster_name         = aws_ecs_cluster.main.name
@@ -75,6 +75,8 @@ module "backend_api_gateway" {
       valueFrom = "${aws_secretsmanager_secret_version.database_credentials.arn}:password::"
     }
   ]
+
+  health_http_code = "404"
 
   common_tags = local.common_tags
 }

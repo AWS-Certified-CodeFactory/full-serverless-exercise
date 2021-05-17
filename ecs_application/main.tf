@@ -69,4 +69,14 @@ resource "aws_lb_target_group" "app" {
   port        = 80
   protocol    = "HTTP"
   vpc_id      = var.vpc_id
+
+  health_check {
+    enabled             = true
+    healthy_threshold   = 3
+    unhealthy_threshold = 3
+    timeout             = 59
+    interval            = 60
+    path                = var.health_path
+    matcher             = var.health_http_code
+  }
 }

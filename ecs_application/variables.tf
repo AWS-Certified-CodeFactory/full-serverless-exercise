@@ -62,3 +62,10 @@ variable "secrets" {
 
 variable "task_execution_role_arn" {}
 variable "task_role_arn" {}
+
+variable "health_path" {
+  default = "/"
+}
+variable "health_http_code" {
+  default = "200"
+}
