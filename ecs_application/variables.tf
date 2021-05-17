@@ -11,6 +11,7 @@ variable "env" {
 }
 
 variable "cluster_id" {}
+variable "cluster_name" {}
 variable "vpc_id" {}
 variable "subnets" {}
 variable "security_group_id" {}

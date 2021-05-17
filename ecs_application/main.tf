@@ -34,7 +34,7 @@ resource "aws_ecs_service" "app" {
   launch_type     = "FARGATE"
   cluster         = var.cluster_id
   task_definition = aws_ecs_task_definition.app.arn
-  desired_count   = var.desired_count
+  desired_count   = 2
 
   network_configuration {
     subnets          = var.subnets
@@ -54,6 +54,11 @@ resource "aws_ecs_service" "app" {
     registry_arn   = var.service_registry_arn
     container_name = var.app_name
   }
+
+  lifecycle {
+    ignore_changes = [desired_count]
+  }
+
 
   tags = var.common_tags
 }

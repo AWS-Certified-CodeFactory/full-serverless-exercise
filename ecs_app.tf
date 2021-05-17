@@ -12,6 +12,7 @@ module "frontend_website" {
   app_name = "frontend-website"
 
   cluster_id           = aws_ecs_cluster.main.id
+  cluster_name         = aws_ecs_cluster.main.name
   service_registry_arn = aws_service_discovery_service.cluster_registry.arn
 
   desired_count = 3
@@ -39,6 +40,7 @@ module "backend_api_gateway" {
   desired_count    = 3
 
   cluster_id           = aws_ecs_cluster.main.id
+  cluster_name         = aws_ecs_cluster.main.name
   service_registry_arn = aws_service_discovery_service.cluster_registry.arn
 
   vpc_id                  = module.vpc.vpc_id
