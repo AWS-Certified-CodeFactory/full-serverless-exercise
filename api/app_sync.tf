@@ -7,4 +7,6 @@ resource "aws_appsync_graphql_api" "app" {
     default_action = "DENY"
     user_pool_id   = aws_cognito_user_pool.app.id
   }
+
+  schema = file("${path.module}/schema.graphql")
 }
