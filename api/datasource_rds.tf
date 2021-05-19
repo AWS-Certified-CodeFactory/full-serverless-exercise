@@ -1,3 +1,6 @@
+//use this guide:
+//https://docs.aws.amazon.com/appsync/latest/devguide/tutorial-rds-resolvers.html
+
 resource "aws_appsync_datasource" "rds" {
   api_id           = aws_appsync_graphql_api.app.id
   name             = "rds"
@@ -32,20 +35,27 @@ resource "aws_iam_role_policy" "rds_access" {
   "Statement": [
     {
       "Action": [
-        "rds-data:*"
+        "rds-data:DeleteItems",
+        "rds-data:ExecuteSql",
+        "rds-data:ExecuteStatement",
+        "rds-data:GetItems",
+        "rds-data:InsertItems",
+        "rds-data:UpdateItems"
       ],
       "Effect": "Allow",
       "Resource": [
-        "${var.rds_arn}"
+        "${var.rds_arn}",
+        "${var.rds_arn}:*"
       ]
     },
     {
       "Action": [
-        "secretsmanager:*"
+        "secretsmanager:GetSecretValue"
       ],
       "Effect": "Allow",
       "Resource": [
-        "${var.rds_secrets_arn}"
+        "${var.rds_secrets_arn}",
+        "${var.rds_secrets_arn}:*"
       ]
     }
   ]
